@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    app:strokeWidth="0dp"
+    app:strokeColor="@android:color/transparent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/_8sdp"
+    android:background="@drawable/img_5"
+    android:layout_marginTop="@dimen/_3sdp"
+    android:elevation="@dimen/_8sdp"
+    app:cardCornerRadius="@dimen/_8sdp">
+
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_65sdp"
+        android:background="@drawable/img_5"
+        android:padding="@dimen/_7sdp">
+
+        <TextView
+            android:id="@+id/list_position"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:fontFamily="serif-monospace"
+            android:text="2."
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="#FEFEFF"
+            android:textStyle="bold" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="@dimen/_42sdp"
+            android:layout_height="@dimen/_42sdp"
+            android:elevation="@dimen/_5sdp"
+            app:cardCornerRadius="@dimen/_11sdp">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="start"
+                android:src="@drawable/img_2" />
+        </androidx.cardview.widget.CardView>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:gravity="start|center_vertical"
+            android:orientation="vertical">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_3sdp"
+                android:fontFamily="sans-serif-smallcaps"
+                android:gravity="start"
+                android:text="Konsta ft Asl wayne"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_artist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="serif-monospace"
+                android:gravity="start"
+                android:text="Konsta ft Asl wayne"
+                android:textColor="#FDFCFC" />
+        </LinearLayout>
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@android:color/transparent" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottieView"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:visibility="invisible"
+            app:lottie_autoPlay="false"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/lotti" />
+
+
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

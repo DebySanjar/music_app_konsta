@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:interpolator="@android:interpolator/accelerate_decelerate">
+
+    <!-- Tepadan pastga harakat -->
+    <translate
+        android:duration="1100"
+        android:fillAfter="true"
+        android:fromYDelta="-100%p"
+        android:toYDelta="0" />
+
+    <!-- Ko‘rinishni oshirish (fade in) -->
+    <alpha
+        android:duration="1800"
+        android:fillAfter="true"
+        android:fromAlpha="0.0"
+        android:toAlpha="1.0" />
+
+</set>

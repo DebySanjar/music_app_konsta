@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_navigation"
+    app:startDestination="@id/listFragment">
+
+    <fragment
+        android:id="@+id/listFragment"
+        android:name="com.example.muzik.myapplication.Fragments.ListFragment"
+        android:label="fragment_list"
+        tools:layout="@layout/fragment_list">
+        <action
+            android:id="@+id/action_listFragment_to_showFragment"
+            app:destination="@id/showFragment"
+            app:enterAnim="@anim/list_enter"
+            app:exitAnim="@anim/list_exit"
+            app:popEnterAnim="@anim/show_enter"
+            app:popExitAnim="@anim/show_exit" />
+    </fragment>
+    <fragment
+        android:id="@+id/showFragment"
+        android:name="com.example.muzik.myapplication.Fragments.ShowFragment"
+        android:label="fragment_show"
+        tools:layout="@layout/fragment_show">
+        <argument
+            android:name="artistName"
+            app:argType="string" />
+
+        <argument
+            android:name="songName"
+            app:argType="string" />
+
+
+        <argument
+            android:name="fileResId"
+            app:argType="integer" />
+        <argument
+            android:name="songList"
+            app:argType="com.example.muzik.myapplication.models.Music[]" />
+
+    </fragment>
+</navigation>
