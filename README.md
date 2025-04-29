@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/e2d9fe5d-3953-4239-9548-7372de02c877)# 🎧 Konsta Music — Offline Music Player
+# 🎧 Konsta Music — Offline Music Player
 
 **Konsta Music** — bu zamonaviy, chiroyli interfeysga ega va *butunlay offlayn* rejimda ishlaydigan Android musiqa pleer ilovasi. Internetga ulanmagan holatda ham sevimli qo‘shiqlaringizni bemalol tinglang. Minimalistik dizayn, tezkor ishlash va foydalanuvchi uchun qulay interfeys — barchasi bitta ilovada jamlangan!
 
@@ -24,9 +24,11 @@
 
 ---
 
-## 📷 Screenshotlar
-![image](https://github.com/user-attachments/assets/c9173216-6b83-4185-9ae4-5d3156aeddff)
-![image](https://github.com/user-attachments/assets/403d07c5-530d-4862-bec9-8133e83c5c01)
+ ## 📸 Skrinshotlar:
+<p align="center">
+    <img src="https://github.com/user-attachments/assets/c9173216-6b83-4185-9ae4-5d3156aeddff" width="45%">
+    <img src="https://github.com/user-attachments/assets/54481767-c205-472f-a852-eac1284eb5dd" width="45%">
+</p>
 
 
 
