@@ -16,7 +16,6 @@ val muzicList = listOf(
     Music("Konsta", "Qor", R.raw.qor),
     Music("Konsta", "Santa", R.raw.santa),
     Music("Konsta ft Shaka", "Kapalak", R.raw.shaka),
-    Music("Konsta", "Qorincha", R.raw.qorincha),
     Music("Konsta ft Dilnoz", "U haqida", R.raw.uhaqida),
     Music("Konsta", "Bilmaydi", R.raw.bilmaydi),
     Music("Konsta", "Dada", R.raw.dada),
