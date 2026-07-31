@@ -12,8 +12,8 @@ android {
         applicationId = "com.example.muzik.myapplication"
         minSdk = 25
         targetSdk = 35
-        versionCode = 2
-        versionName = "2.0"
+        versionCode = 5
+        versionName = "5.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -43,6 +43,16 @@ android {
         compose = true
         viewBinding = true
         buildConfig = true
+    }
+
+    // Kichik APK — faqat kerakli ABI arxitektura
+    splits {
+        abi {
+            isEnable = true
+            reset()
+            include("arm64-v8a", "armeabi-v7a")
+            isUniversalApk = false
+        }
     }
 
     composeOptions {
@@ -77,6 +87,8 @@ dependencies {
     implementation("androidx.media:media:1.7.0")
     implementation("com.google.android.play:review:2.0.1")
     implementation("com.google.android.play:review-ktx:2.0.1")
+    implementation("com.google.android.play:app-update:2.1.0")
+    implementation("com.google.android.play:app-update-ktx:2.1.0")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

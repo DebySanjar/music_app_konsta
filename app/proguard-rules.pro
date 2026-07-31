@@ -19,3 +19,21 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+# ── Lottie ────────────────────────────────────────────────────────────
+-keep class com.airbnb.lottie.** { *; }
+-dontwarn com.airbnb.lottie.**
+
+# ── Google Play In-App Review ─────────────────────────────────────────
+-keep class com.google.android.play.core.review.** { *; }
+-dontwarn com.google.android.play.core.review.**
+
+# ── Media (notification) ──────────────────────────────────────────────
+-keep class androidx.media.** { *; }
+
+# ── App models (Parcelize) ────────────────────────────────────────────
+-keep class com.example.muzik.myapplication.models.** { *; }
+
+# ── Stack trace debugging ─────────────────────────────────────────────
+-keepattributes SourceFile,LineNumberTable
+-renamesourcefileattribute SourceFile

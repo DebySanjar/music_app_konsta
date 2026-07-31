@@ -1,9 +1,11 @@
 package com.example.muzik.myapplication
 
 import android.Manifest
+import android.app.Activity
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -25,6 +27,10 @@ import com.example.muzik.myapplication.ui.screens.ShowScreen
 import com.example.muzik.myapplication.ui.screens.SplashScreen
 import com.example.muzik.myapplication.ui.theme.KonstaTheme
 import com.example.muzik.myapplication.viewmodel.MusicViewModel
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory
+import com.google.android.play.core.appupdate.AppUpdateOptions
+import com.google.android.play.core.install.model.AppUpdateType
+import com.google.android.play.core.install.model.UpdateAvailability
 
 class MainActivity : ComponentActivity() {
 
@@ -38,12 +44,17 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
+        // Notification permission — Android 13+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS)
-                != PackageManager.PERMISSION_GRANTED) {
+                != PackageManager.PERMISSION_GRANTED
+            ) {
                 notifPermission.launch(Manifest.permission.POST_NOTIFICATIONS)
             }
         }
+
+        // In-App Update tekshiruvi
+        checkForUpdate()
 
         setContent {
             KonstaTheme {
@@ -54,16 +65,46 @@ class MainActivity : ComponentActivity() {
 
     override fun onResume() {
         super.onResume()
-        // Shartlar bajarilgan bo'lsa review dialog ko'rsatamiz
+        // Rate dialog
         if (vm.reviewManager.shouldShowReview()) {
             vm.reviewManager.launchReview(this)
+        }
+    }
+
+    // ── In-App Update ─────────────────────────────────────────────────
+
+    private fun checkForUpdate() {
+        val appUpdateManager = AppUpdateManagerFactory.create(this)
+
+        appUpdateManager.appUpdateInfo.addOnSuccessListener { info ->
+            when {
+                // Yangilanish mavjud — FLEXIBLE (fon yuklab, keyinroq taklif qiladi)
+                info.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE &&
+                info.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE) -> {
+                    appUpdateManager.startUpdateFlow(
+                        info,
+                        this,
+                        AppUpdateOptions.newBuilder(AppUpdateType.FLEXIBLE).build()
+                    ).addOnFailureListener { e ->
+                        Log.w("AppUpdate", "Flexible update failed: ${e.message}")
+                    }
+                }
+
+                // Yangilanish allaqachon yuklab olingan — restart taklif qil
+                info.installStatus() == com.google.android.play.core.install.model.InstallStatus.DOWNLOADED -> {
+                    appUpdateManager.completeUpdate()
+                }
+            }
+        }.addOnFailureListener { e ->
+            // Play Store yo'q (test qurilma) — xatoni yutib yuboramiz
+            Log.d("AppUpdate", "Update check skipped: ${e.message}")
         }
     }
 }
 
 @Composable
 fun KonstaApp() {
-    val navController = rememberNavController()
+    val navController  = rememberNavController()
     val musicViewModel: MusicViewModel = viewModel()
 
     NavHost(navController = navController, startDestination = "splash") {
@@ -83,22 +124,19 @@ fun KonstaApp() {
             route = "list",
             enterTransition = { fadeIn(animationSpec = tween(220)) },
             exitTransition = {
-                fadeOut(tween(180)) + scaleOut(
-                    animationSpec = tween(180),
-                    targetScale = 0.96f
-                )
+                fadeOut(tween(180)) + scaleOut(animationSpec = tween(180), targetScale = 0.96f)
             },
             popEnterTransition = {
-                fadeIn(tween(220)) + scaleIn(
-                    animationSpec = tween(220),
-                    initialScale = 0.96f
-                )
+                fadeIn(tween(220)) + scaleIn(animationSpec = tween(220), initialScale = 0.96f)
             }
         ) {
             ListScreen(
                 viewModel = musicViewModel,
                 onSongClick = { index ->
-                    musicViewModel.playSongAt(index)   // navigate OLDIDAN play boshlaydi
+                    musicViewModel.playSongAt(index)
+                    navController.navigate("show/$index")
+                },
+                onMiniPlayerExpand = { index ->
                     navController.navigate("show/$index")
                 }
             )
@@ -113,12 +151,10 @@ fun KonstaApp() {
                         dampingRatio = Spring.DampingRatioMediumBouncy,
                         stiffness = Spring.StiffnessMediumLow
                     )
-                ) { (it * 0.08f).toInt() }   // ozgina pastdan — iOS kabi
+                ) { (it * 0.08f).toInt() }
             },
             exitTransition = {
-                fadeOut(tween(180)) + slideOutVertically(
-                    animationSpec = tween(200)
-                ) { (it * 0.06f).toInt() }
+                fadeOut(tween(180)) + slideOutVertically(tween(200)) { (it * 0.06f).toInt() }
             }
         ) { back ->
             val index = back.arguments?.getInt("songIndex") ?: 0
